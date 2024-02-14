@@ -1,0 +1,62 @@
+[server_settings]
+# specifies parameters for the wms server
+
+# specify full hostname up to, but not including the parameter string
+# eg. http://localhost:9000/wms/
+hostname = "http://geospatialmqptesting.dyn.wpi.edu:8090/datasets/rtofs/wms/"
+
+[layers]
+# specify the layer(s) exactly as it is delivered in the WMS query.
+# use exactly as many layers (>=1) as you need. extra layer lines should be removed.
+# to add additional layers, add more lines in the [layers] section here and they will be parsed.
+# variable names here should not be important but I would recommend following the same naming convention as the examples
+layer1 = "ssh"
+layer2 = "surface_boundary_layer_thickness"
+
+[script_settings]
+# settings that define how the script behaves
+
+# the output (tsv) file name that will be placed in results/. if this file already exists it will be overwritten.
+filename = "outputs/output2.tsv"
+
+# [true | false] uses threads to send synchronous requests in parallel
+# if true, threads_per_layer defines how many threads will be assigned to each specified layer
+multi_threading = false
+
+threads_per_layer = 1
+
+# specify the number of trials to perform (per layer/thread).
+# the total number of trials that will be performed is num_trials * num_layers * threads_per_layer
+num_trials = 10
+
+# specify whether to use mercator (3857) or latlon (4326) in the query
+epsg = 3857
+
+[tile_settings]
+# settings that affect the GetMap tiles that will be randomly requested
+
+# the tile width and height used for the generated testing tiles. 256x256 and 512x512 are the most commonly seen sizes
+tile_width = 256
+tile_height = 256
+
+# specify the zoom range (spherical mercator z level) to use during random tile generation.
+min_zoom = 4
+max_zoom = 8
+
+[advanced]
+# advanced settings that can be useful for specific use cases or datasets
+
+# if you want to only randomly generate tiles from a specific area of the map, specifiy the min/max x and y values here
+# use the tile range for the min_zoom level you specify above
+# min and max must be both specified eg. 0-10 cannot be min_x = null and max_x = 10
+limit_x = false
+limit_y = false
+min_x = -1
+min_y = -1
+max_x = -1
+max_y = -1
+
+
+
+
+
